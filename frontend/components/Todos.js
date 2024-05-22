@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { TodosContext } from '../context/todos'
 
 const StyledTodo = styled.li`
   text-decoration: ${pr => pr.$complete ? 'line-through' : 'initial'};
   cursor: pointer;
 `
 
-export default function Todo(props) {
+export default function Todo() {
   const {
     todos,
     toggleTodo,
     showCompletedTodos,
     toggleShowCompletedTodos
-  } = props
+  } = useContext(TodosContext)
 
   return (
     <div id="todos">
@@ -24,8 +25,7 @@ export default function Todo(props) {
               return showCompletedTodos || !todo.complete
             })
             .map(todo => (
-              <StyledTodo onClick={() => toggleTodo(todo.id)}
-                $complete={todo.complete} key={todo.id}>
+              <StyledTodo onClick={() => toggleTodo(todo.id)} $complete={todo.complete} key={todo.id}>
                 <span>{todo.label}{todo.complete && ' ✔️'}</span>
               </StyledTodo>
             ))
